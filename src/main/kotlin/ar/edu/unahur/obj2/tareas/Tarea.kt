@@ -16,7 +16,7 @@ class Simple(private val horasEstimadas : Double,
     override fun horasNecesarias() = this.horasEstimadas / empleadosAsignados.size
     override fun costoTarea() = this.costoInfraestructura + empleadosAsignados.sumByDouble { it.calcularSalario(horasEstimadas)} + responsable.calcularSalario(horasEstimadas)
     override fun nominaEmpleados(): MutableSet<Empleado> {
-        var nominaEmpleados = this.empleadosAsignados
+        val nominaEmpleados = this.empleadosAsignados
         nominaEmpleados.add(responsable)
         return nominaEmpleados
     }
@@ -31,7 +31,7 @@ class Integracion(private val responsable : Empleado) : Tarea{
     private fun bonus() = costoSubTareas() * 0.03
     override fun costoTarea() = costoSubTareas() + bonus()
     override fun nominaEmpleados(): MutableSet<Empleado> {
-        var nominaEmpleados = tareas.flatMap { it.nominaEmpleados() }.toMutableSet()
+        val nominaEmpleados = tareas.flatMap { it.nominaEmpleados() }.toMutableSet()
         nominaEmpleados.add(responsable)
         return nominaEmpleados
     }
